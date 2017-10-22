@@ -83,38 +83,52 @@ $(function() {
     });
 
     /*   Write a new test suite named "Initial Entries" */
-    describe('Initial Entries', function(){
-        beforeEach(function(done){
-            loadFeed(1, function(){
-                done();
-            });
+    describe('Initial Entries', function() {
+        /*   Write a test that ensures when the loadFeed
+         * function is called and completes its work, there is at least
+         * a single .entry element within the .feed container.
+         * Remember, loadFeed() is asynchronous so this test will require
+         * the use of Jasmine's beforeEach and asynchronous done() function.
+         */
+        beforeEach(function(done) {
+          loadFeed(0, done);
         });
-        it('Initial Entries', function(done){
-          var l=$(".feed .entry-link .entry").length;
+        it('Initial Entries', function() {
+          var l=$( ".feed .entry-link .entry" ).length;
             expect(l).toBeGreaterThan(0);
-            done();
         });
+
     });
     /*   Write a new test suite named "New Feed Selection" */
-    describe('New Feed Selection', function(){
+    describe('New Feed Selection', function() {
+        /*   Write a test that ensures when a new feed is loaded
+         * by the loadFeed function that the content actually changes.
+         * Remember, loadFeed() is asynchronous.
+         */
         var feedOne;
         var feedTwo;
         var count= 1;
-        beforeEach(function(done){
-            loadFeed(count, function(){
-                done();
-            });
+      /*  beforeEach(function(done) {
+
+              loadFeed(count, done);
             count++;
         });
+
         it('new feed is loaded', function(done) {
             feedOne = $('h2')[0].innerText;
-            expect($('.entry')).toBeDefined();
+            var l=$( ".feed .entry-link .entry" ).length;
+              expect(l).toBeGreaterThan(0);
             done();
-        });
+            // count=2;
+        });*/
         it('loadFeed function that the content actually changes', function(done) {
+          loadFeed(count, done);
+            done();
+          feedOne = $('h2')[0].innerText;
+        loadFeed(++count, done);
+          done();
             feedTwo = $('h2')[0].innerText;
             expect(feedTwo).not.toEqual(feedOne);
-            done();
         });
 
     });

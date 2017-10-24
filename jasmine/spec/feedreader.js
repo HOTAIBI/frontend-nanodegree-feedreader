@@ -94,7 +94,7 @@ $(function() {
           loadFeed(0, done);
         });
         it('Initial Entries', function() {
-          var l=$( ".feed .entry-link .entry" ).length;
+          var l=$( ".feed .entry" ).length;
             expect(l).toBeGreaterThan(0);
         });
 
@@ -105,30 +105,24 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        var feedOne;
-        var feedTwo;
-        var count= 1;
-      /*  beforeEach(function(done) {
 
-              loadFeed(count, done);
-            count++;
-        });
 
-        it('new feed is loaded', function(done) {
-            feedOne = $('h2')[0].innerText;
-            var l=$( ".feed .entry-link .entry" ).length;
-              expect(l).toBeGreaterThan(0);
-            done();
-            // count=2;
-        });*/
         it('loadFeed function that the content actually changes', function(done) {
-          loadFeed(count, done);
-            done();
+          var feedOne;
+          var feedTwo;
+          loadFeed(0, function() {
+            // do stuff with feed 0
+            loadFeed(1, function() {
+              // do stuff with feed 1
+              feedTwo = $('h2')[0].innerText;
+              done();
+            });
+          });
+
           feedOne = $('h2')[0].innerText;
-        loadFeed(++count, done);
-          done();
-            feedTwo = $('h2')[0].innerText;
             expect(feedTwo).not.toEqual(feedOne);
+
+
         });
 
     });

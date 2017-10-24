@@ -110,18 +110,18 @@ $(function() {
         it('loadFeed function that the content actually changes', function(done) {
           var feedOne;
           var feedTwo;
-          loadFeed(0, function() {
+         loadFeed(0, function() {
             // do stuff with feed 0
             loadFeed(1, function() {
               // do stuff with feed 1
               feedTwo = $('h2')[0].innerText;
+              expect(feedTwo).not.toEqual(feedOne);
               done();
             });
+            feedOne = $('h2')[0].innerText;
+
+
           });
-
-          feedOne = $('h2')[0].innerText;
-            expect(feedTwo).not.toEqual(feedOne);
-
 
         });
 
